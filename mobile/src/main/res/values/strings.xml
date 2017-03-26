@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Minha Residencia Inteligente</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">Usuario</string>
+    <string name="prompt_password">Senha</string>
+    <string name="action_sign_in">Acessar</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="error_invalid_email">Este usuario é invalido</string>
+    <string name="error_invalid_password">Esta senha é muito pequena</string>
+    <string name="error_incorrect_password">Esta senha é invalida</string>
+    <string name="error_field_required">Este campo é obrigatório</string>
+    <string name="permission_rationale">"Contacts permissions are needed for providing email
+        completions."
+    </string>
+    <string name="title_activity_configuracao">Configuração</string>
+</resources>
