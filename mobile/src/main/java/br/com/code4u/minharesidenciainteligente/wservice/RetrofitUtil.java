@@ -11,13 +11,13 @@ import android.widget.RelativeLayout;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 import br.com.code4u.minharesidenciainteligente.R;
 import br.com.code4u.minharesidenciainteligente.adapter.DispositivoAdapter;
-import br.com.code4u.minharesidenciainteligente.model.Configuracao;
 import br.com.code4u.minharesidenciainteligente.model.Dispositivo;
-import io.realm.Realm;
+import br.com.code4u.minharesidenciainteligente.util.ApplicationSession;
 import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -40,21 +40,22 @@ public class RetrofitUtil {
         this.activity = activity;
         this.layout = layout;
 
-        Realm realm = Realm.getInstance(activity.getApplicationContext());
-        Configuracao configuracao = realm.where(Configuracao.class).findFirst();
-
         final OkHttpClient okHttpClient = new OkHttpClient.Builder()
                 .readTimeout(10, TimeUnit.SECONDS)
                 .connectTimeout(10, TimeUnit.SECONDS)
                 .build();
 
-        retrofit = new Retrofit.Builder()
-                .baseUrl("http://" + configuracao.getIp() + ":"+ configuracao.getPorta() + "/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .client(okHttpClient)
-                .build();
+        try {
+            retrofit = new Retrofit.Builder()
+                    .baseUrl("http://" + ApplicationSession.getString("IP", "") + ":" + ApplicationSession.getString("PORTA", "") + "/")
+                    .addConverterFactory(GsonConverterFactory.create())
+                    .client(okHttpClient)
+                    .build();
 
-         servicoRaspberryPi = retrofit.create(ServicoRaspberryPi.class);
+            servicoRaspberryPi = retrofit.create(ServicoRaspberryPi.class);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public void ligarDispositivo(final Dispositivo dispositivo, final ImageView imagem, final Activity activity){
@@ -145,27 +146,13 @@ public class RetrofitUtil {
                         DispositivoAdapter adapter = new DispositivoAdapter(response.body(), activity);
                         listView.setAdapter(adapter);
                     }else{
-                        Snackbar.make(layout, "Erro na comunicação com a Central", Snackbar.LENGTH_LONG)
-                                .setAction("Tentar Novamente", new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        listarDispositivos(listView);
-                                    }
-                                })
-                                .show();
+                        Snackbar.make(layout, "Erro na comunicação com a Central", Snackbar.LENGTH_LONG).show();
                     }
                 }
 
                 @Override
                 public void onFailure(Call<List<Dispositivo>> call, Throwable t) {
-                    Snackbar.make(layout, "Erro na comunicação com a Central", Snackbar.LENGTH_LONG)
-                            .setAction("Tentar Novamente", new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    listarDispositivos(listView);
-                                }
-                            })
-                            .show();
+                    Snackbar.make(layout, "Erro na comunicação com a Central", Snackbar.LENGTH_LONG).show();
                 }
             });
         }catch (Exception e){

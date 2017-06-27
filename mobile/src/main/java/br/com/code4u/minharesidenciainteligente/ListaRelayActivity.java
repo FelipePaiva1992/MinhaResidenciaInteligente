@@ -1,19 +1,17 @@
 package br.com.code4u.minharesidenciainteligente;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
+import android.os.Handler;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.concurrent.TimeUnit;
 
-import br.com.code4u.minharesidenciainteligente.adapter.DispositivoAdapter;
-import br.com.code4u.minharesidenciainteligente.model.Dispositivo;
 import br.com.code4u.minharesidenciainteligente.wservice.RetrofitUtil;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,7 +24,7 @@ public class ListaRelayActivity extends AppCompatActivity {
     @BindView(R.id.activity_lista_relay)
     RelativeLayout layout;
 
-    Thread thread;
+    Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,9 +65,32 @@ public class ListaRelayActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onResume() {
-        listarDispositivos(20000);
+    public void onPause() {
+        super.onPause();
+        handler.removeCallbacksAndMessages(null);
+        stopHandler();
+    }
+
+    @Override
+    public void onResume() {
         super.onResume();
+        startHandler();
+    }
+    private void stopHandler(){
+        if(handler != null)
+            handler.removeCallbacksAndMessages(null);
+    }
+
+    private void startHandler(){
+        final RetrofitUtil retrofitUtil = new RetrofitUtil(this,layout);
+        handler = new Handler();
+        handler.postDelayed( new Runnable() {
+            @Override
+            public void run() {
+                retrofitUtil.listarDispositivos(listaDispositivos);
+                handler.postDelayed( this, TimeUnit.SECONDS.toMillis(10));
+            }
+        }, TimeUnit.SECONDS.toMillis(15));
     }
 
     @Override
