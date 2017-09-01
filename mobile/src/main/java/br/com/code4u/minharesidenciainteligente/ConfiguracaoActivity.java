@@ -19,13 +19,13 @@ public class ConfiguracaoActivity extends AppCompatActivity{
 
 
     @BindView(R.id.ip)
-    EditText ip;
+    private EditText ip;
 
     @BindView(R.id.porta)
-    EditText porta;
+    private EditText porta;
 
     @BindView(R.id.telaConfiguracao)
-    LinearLayout layout;
+    private LinearLayout layout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

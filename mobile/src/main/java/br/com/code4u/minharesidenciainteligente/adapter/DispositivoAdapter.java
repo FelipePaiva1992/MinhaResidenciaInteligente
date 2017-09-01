@@ -1,18 +1,12 @@
 package br.com.code4u.minharesidenciainteligente.adapter;
 
 import android.app.Activity;
-import android.content.Context;
-import android.support.design.widget.Snackbar;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -34,21 +28,17 @@ public class DispositivoAdapter  extends BaseAdapter {
     private Activity activity;
 
     @BindView(R.id.nomeDispositivo)
-    TextView nomeDispositivo;
+    private TextView nomeDispositivo;
 
     @BindView(R.id.statusDispositivo)
-    ImageView statusDispositivo;
-
-
-    RelativeLayout activityListaRelay;
+    private ImageView statusDispositivo;
 
     private RetrofitUtil retrofitUtil;
 
     public DispositivoAdapter(List<Dispositivo> dispositivos, Activity activity) {
         this.dispositivos = dispositivos;
         this.activity = activity;
-        this.activityListaRelay = (RelativeLayout) activity.findViewById(R.id.activity_lista_relay);
-        this.retrofitUtil = new RetrofitUtil(activity,activityListaRelay);
+        this.retrofitUtil = new RetrofitUtil(activity,(RelativeLayout) activity.findViewById(R.id.activity_lista_relay));
     }
 
     @Override
