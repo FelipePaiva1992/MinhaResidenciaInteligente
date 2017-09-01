@@ -11,7 +11,6 @@ import android.widget.RelativeLayout;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
 
 import br.com.code4u.minharesidenciainteligente.R;
@@ -31,7 +30,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitUtil {
 
-    private Retrofit retrofit;
     private ServicoRaspberryPi servicoRaspberryPi;
     private Activity activity;
     private RelativeLayout layout;
@@ -46,7 +44,7 @@ public class RetrofitUtil {
                 .build();
 
         try {
-            retrofit = new Retrofit.Builder()
+            Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl("http://" + ApplicationSession.getString("IP", "") + ":" + ApplicationSession.getString("PORTA", "") + "/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .client(okHttpClient)

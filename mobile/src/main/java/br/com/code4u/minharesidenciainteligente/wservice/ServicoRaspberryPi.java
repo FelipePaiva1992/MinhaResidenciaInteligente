@@ -6,7 +6,6 @@ import br.com.code4u.minharesidenciainteligente.model.Dispositivo;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
-import retrofit2.http.Query;
 
 /**
  * Created by felipepaiva on 25/03/17.

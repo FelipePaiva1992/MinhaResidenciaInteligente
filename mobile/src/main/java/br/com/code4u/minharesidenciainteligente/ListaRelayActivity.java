@@ -19,12 +19,12 @@ import butterknife.ButterKnife;
 public class ListaRelayActivity extends AppCompatActivity {
 
     @BindView(R.id.lista_dispositivos)
-    ListView listaDispositivos;
+    private ListView listaDispositivos;
 
     @BindView(R.id.activity_lista_relay)
-    RelativeLayout layout;
+    private RelativeLayout layout;
 
-    Handler handler;
+    private Handler handler;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

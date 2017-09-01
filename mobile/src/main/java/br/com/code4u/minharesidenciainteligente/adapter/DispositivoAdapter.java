@@ -1,18 +1,12 @@
 package br.com.code4u.minharesidenciainteligente.adapter;
 
 import android.app.Activity;
-import android.content.Context;
-import android.support.design.widget.Snackbar;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -34,13 +28,13 @@ public class DispositivoAdapter  extends BaseAdapter {
     private Activity activity;
 
     @BindView(R.id.nomeDispositivo)
-    TextView nomeDispositivo;
+    private TextView nomeDispositivo;
 
     @BindView(R.id.statusDispositivo)
-    ImageView statusDispositivo;
+    private ImageView statusDispositivo;
 
 
-    RelativeLayout activityListaRelay;
+    private RelativeLayout activityListaRelay;
 
     private RetrofitUtil retrofitUtil;
 
