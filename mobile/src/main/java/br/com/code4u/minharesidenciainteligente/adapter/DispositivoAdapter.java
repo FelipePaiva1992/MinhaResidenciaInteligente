@@ -33,16 +33,12 @@ public class DispositivoAdapter  extends BaseAdapter {
     @BindView(R.id.statusDispositivo)
     private ImageView statusDispositivo;
 
-
-    private RelativeLayout activityListaRelay;
-
     private RetrofitUtil retrofitUtil;
 
     public DispositivoAdapter(List<Dispositivo> dispositivos, Activity activity) {
         this.dispositivos = dispositivos;
         this.activity = activity;
-        this.activityListaRelay = (RelativeLayout) activity.findViewById(R.id.activity_lista_relay);
-        this.retrofitUtil = new RetrofitUtil(activity,activityListaRelay);
+        this.retrofitUtil = new RetrofitUtil(activity,(RelativeLayout) activity.findViewById(R.id.activity_lista_relay));
     }
 
     @Override
